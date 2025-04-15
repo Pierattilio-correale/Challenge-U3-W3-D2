@@ -35,11 +35,11 @@ const ArticleDetails = function () {
   return (
     <>
       <Container>
-        <Row>
-          <Col>
+        <Row className="d-flex justify-content-center">
+          <Col xs={12} md={8}>
             <Card>
               <Card.Img variant="top" src={article?.image_url} />
-              <Card.Body>
+              <Card.Body className="bg-dark text-white">
                 <Card.Title>Autore {article?.authors[0].name}</Card.Title>
                 <Card.Title> {article?.title}</Card.Title>
                 <Card.Text>{article?.summary}</Card.Text>
