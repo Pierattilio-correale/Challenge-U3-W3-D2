@@ -36,7 +36,7 @@ const ArticleDetails = function () {
     <>
       <Container>
         <Row className="d-flex justify-content-center">
-          <Col xs={12} md={8}>
+          <Col xs={12} md={8} lg={6} xl={4}>
             <Card>
               <Card.Img variant="top" src={article?.image_url} />
               <Card.Body className="bg-dark text-white">
