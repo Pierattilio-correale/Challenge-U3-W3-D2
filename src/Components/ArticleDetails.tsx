@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Article } from "../Types";
 import { useParams } from "react-router-dom";
-import { Col, Container, Row, Card } from "react-bootstrap";
+import { Col, Container, Row, Card, Spinner, Alert } from "react-bootstrap";
 
 type Params = {
   MyID: string;
@@ -12,6 +12,8 @@ const ArticleDetails = function () {
   const spaceURL = "https://api.spaceflightnewsapi.net/v4/articles/";
 
   const [article, setArticle] = useState<Article | null>(null);
+  const [isloading, setIsloading] = useState(true);
+  const [iserror, setIserror] = useState(false);
   const getArticles = () => {
     fetch(spaceURL + params.MyID)
       .then((response) => {
@@ -24,9 +26,13 @@ const ArticleDetails = function () {
       .then((data) => {
         console.log(data);
         setArticle(data);
+        setIsloading(false);
+        setIserror(false);
       })
       .catch((err) => {
         console.log("Errore", err);
+        setIsloading(false);
+        setIserror(true);
       });
   };
   useEffect(() => {
@@ -34,6 +40,17 @@ const ArticleDetails = function () {
   }, []);
   return (
     <>
+      {isloading && (
+        <Col xs={12} className="text-center my-4">
+          <Spinner animation="border" variant="primary" />
+        </Col>
+      )}
+
+      {iserror && (
+        <Col xs={12} className="my-4">
+          <Alert variant="danger">Errore nel caricamento degli articoli</Alert>
+        </Col>
+      )}
       <Container>
         <Row className="d-flex justify-content-center">
           <Col xs={12} md={8} lg={6} xl={4}>
